@@ -47,4 +47,11 @@ namespace Insider
 		}
     }
 
+	static public class Const {
+		static public readonly string[] THEMA = {
+			"牛乳",
+			"アイス"
+		};
+	}
+
 }

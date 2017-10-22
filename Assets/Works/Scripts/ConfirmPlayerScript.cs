@@ -12,7 +12,7 @@ public class ConfirmPlayerScript : MonoBehaviour
     public GameObject insiderPrefab;
     public GameObject masterPrefab;
     public Button nextButton;
-	public CanvasGroup themaPanel;
+	public CanvasGroup themePanel;
     private int playerNum = 0;
     private List<GameObject> playerPanels = new List<GameObject>();
 
@@ -81,7 +81,7 @@ public class ConfirmPlayerScript : MonoBehaviour
         canvas.DOFade(0.0f, 1.0f).SetEase(Ease.InQuad).OnComplete(() =>
         {
             gameObject.SetActive(false);
-            themaPanel.DOFade(1.0f, 0.5f).SetEase(Ease.InQuad);
+            themePanel.DOFade(1.0f, 0.5f).SetEase(Ease.InQuad);
         });
         yield return null;
     }
