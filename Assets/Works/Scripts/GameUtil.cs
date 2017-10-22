@@ -33,6 +33,7 @@ namespace Insider
 
             int insiderNum = (int)Random.Range(0, playerCount);
             playerList[insiderNum] = Status.Insider;
+            Answer.insider = insiderNum;
 
             int masterNum = (int)Random.Range(0, playerCount);
             while (masterNum == insiderNum)
@@ -42,16 +43,34 @@ namespace Insider
             playerList[masterNum] = Status.Master;
         }
 
-		static public Status GetPlayerStatus(int id) {
-			return playerList[id];
+		static public void DestroyPlayerList() {
+			playerList.Clear();
 		}
+
+        static public void CreateTheme()
+        {
+            int id = (int)Random.Range(0, Const.THEMA.Length);
+            Answer.theme = Const.THEMA[id];
+        }
+
+        static public Status GetPlayerStatus(int id)
+        {
+            return playerList[id];
+        }
     }
 
-	static public class Const {
-		static public readonly string[] THEMA = {
-			"牛乳",
-			"アイス"
-		};
-	}
+    static class Answer
+    {
+        static public string theme;
+        static public int insider;
+    }
+
+    static public class Const
+    {
+        static public readonly string[] THEMA = {
+            "牛乳",
+            "アイス"
+        };
+    }
 
 }

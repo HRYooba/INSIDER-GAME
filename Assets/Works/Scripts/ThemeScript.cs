@@ -20,8 +20,8 @@ public class ThemeScript : MonoBehaviour
         gameObject.GetComponent<CanvasGroup>().alpha = 0.0f;
         nextButton.gameObject.SetActive(false);
         text.GetComponent<CanvasGroup>().alpha = 0.0f;
-        int id = (int)Random.Range(0, Const.THEMA.Length);
-        theme = Const.THEMA[id];
+		Settings.CreateTheme();
+		theme = Answer.theme;
         text.text = theme;
     }
 

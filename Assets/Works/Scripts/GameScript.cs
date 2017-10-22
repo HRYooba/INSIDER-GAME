@@ -8,10 +8,13 @@ using Insider;
 public class GameScript : MonoBehaviour
 {
     public Image redCircle;
-    public Button button;
+    public Button themeButton;
+    public Button insiderButton;
     public Text description;
+    public CanvasGroup resultPanel;
     private int time = 3000;
     private bool isPlaying = false;
+    private bool isDiscussion = false;
 
     // Use this for initialization
     void Start()
@@ -25,7 +28,7 @@ public class GameScript : MonoBehaviour
 
     }
 
-    public void PushButton()
+    public void PushThemeButton()
     {
         if (isPlaying)
         {
@@ -34,6 +37,20 @@ public class GameScript : MonoBehaviour
         else
         {
             StartGame();
+        }
+    }
+
+    public void PushInsiderButton()
+    {
+        if (isDiscussion)
+        {
+			StopAllCoroutines();
+            StartFadeOut();
+        }
+        else
+        {
+            isDiscussion = true;
+            StartCoroutine(FindeInsider());
         }
     }
 
@@ -46,9 +63,9 @@ public class GameScript : MonoBehaviour
     private void FinishGame()
     {
         isPlaying = false;
-        button.gameObject.SetActive(false);
+        themeButton.gameObject.SetActive(false);
+        insiderButton.gameObject.SetActive(true);
         description.text = "Find an insider!";
-		StartCoroutine(FindeInsider());
     }
 
     private IEnumerator AnswerTheme()
@@ -77,9 +94,26 @@ public class GameScript : MonoBehaviour
 
             if (time == 3000)
             {
-				yield return new WaitForSeconds(0.5f);
-				yield break;
+                yield return new WaitForSeconds(0.5f);
+                StartFadeOut();
+                yield break;
             }
         }
+    }
+
+    public void StartFadeOut()
+    {
+        StartCoroutine(FadeOut());
+    }
+
+    private IEnumerator FadeOut()
+    {
+        CanvasGroup canvas = gameObject.GetComponent<CanvasGroup>();
+        canvas.DOFade(0.0f, 1.0f).SetEase(Ease.InQuad).OnComplete(() =>
+        {
+            gameObject.SetActive(false);
+            resultPanel.DOFade(1.0f, 0.5f).SetEase(Ease.InQuad);
+        });
+        yield return null;
     }
 }
